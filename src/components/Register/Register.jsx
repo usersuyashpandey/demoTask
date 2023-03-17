@@ -7,52 +7,74 @@ import * as y from "yup";
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from '@mui/material';
 
 const schema = y.object({
-    name: y.string().required("Please enter your name"),
+    name: y.string().required("Name is requred"),
     phone: y.string()
         .required("Phone no. is required")
         .matches(/^[\d\+ \-\(\)]+$/, "Please enter a valid phone number"),
-    address: y.string().required("Please enter your address"),
-    email: y.string().email("Please enter a valid email address").required("Please enter your email"),
-    zipcode:y.string().required("Please enter your name"),
-    country:y.string().required("Please select country"),
-    gender:y.string().required("Please select gender"),
-    preferences: y.boolean().oneOf([true], "This field is required"),
+    address: y.string().required("Address is required"),
+    email: y.string().email("Please enter a valid email address").required("Email is required"),
+    zipcode:y.string().required("Zipcode is required"),
+    country:y.string().required("Country is required"),
+    gender:y.string().oneOf(['male','female'], "Gender is required"),
+    preferences: y.array().required('Preferences is required'),
     password: y.string()
-      .required('Password is mendatory')
+      .required('Password is required')
       .min(3, 'Password must be at 3 char long'),
     confirmPassword: y.string()
-      .required('Password is mandatory')
+      .required('Confirm password is required')
       .oneOf([y.ref('password')], 'Passwords does not match'),
   });
 
 export default function Register() {
-    const [country, setCountry] = useState('');
-    const [selectedValue, setSelectedValue] = useState('a');
     const { control,register, handleSubmit, formState: { errors },reset } = useForm({
         resolver: yupResolver(schema),
-      });
-
-    const handleChange = (event) => {
-        setCountry(event.target.value);
-    };
-
-    const handleChangeRadio=(event)=>{
-        setSelectedValue(event.target.value);
-    }
-
-    const controlProps = (item) => ({
-        checked: selectedValue === item,
-        onChange: handleChangeRadio,
-        value: item,
-        name: 'size-radio-button-demo',
-        inputProps: { 'aria-label': item },
+        onChange: data => {
+            console.log(data);
+        }
     });
-    const onSubmit = (data, e) => console.log(data, e);
+
+    const onSubmit = (data, e) => alert(JSON.stringify(<pre>{data}</pre>));
     const onError = (errors, e) => console.log(errors, e);
     const resetForm=()=>{
         reset()
     }
 
+    const MuiCheckbox = (props) => {
+        const { field } = props;
+        const selectedValues = field.value ?? [];
+      
+        const handleChange = (event) => {
+          const isChecked = event.target.checked;
+          const value = event.target.value;
+      
+          // Update the selectedValues array based on whether the checkbox is checked or unchecked
+          if (isChecked) {
+            selectedValues.push(value);
+          } else {
+            const index = selectedValues.indexOf(value);
+            if (index !== -1) {
+              selectedValues.splice(index, 1);
+            }
+          }
+          field.onChange(selectedValues);
+        };
+      
+        return (
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={selectedValues.includes(props.value)}
+                onChange={handleChange}
+                value={props.value}
+                color={props.color}
+              />
+            }
+            label={props.label}
+            name={props.name}
+          />
+        );
+      };
+      
     return (
         <Box sx={{display:'flex',justifyContent: 'center',backgroundColor:'blue'}}>
         <Box
@@ -126,24 +148,38 @@ export default function Register() {
             </div>
             {errors.gender && <p style={{color:'red'}}>{errors.gender.message}</p>}
             <div>
-                <Box ml={1}>
+                <FormLabel style={{marginLeft:'1rem'}}>Preferences</FormLabel>
                 <Controller
-                    name="checkbox"
+                    name="preferences"
                     control={control}
-                    render={({ field }) => (<>
-                        <FormControl component="fieldset" variant="standard" required {...register("preferences")}>
-                        <FormLabel component="legend">Preferences</FormLabel>
-                        <FormGroup row >
-                            <FormControlLabel control={<Checkbox color='error'/>} label="Red" />
-                            <FormControlLabel control={<Checkbox color='primary'/>} label="Blue" />
-                            <FormControlLabel control={<Checkbox color='success'/>} label="Green" />
-                        </FormGroup>
-                    </FormControl>
-                    </>
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                        <Box ml={1}>
+                        <MuiCheckbox
+                            field={field}
+                            name="preferences"
+                            value="red"
+                            label="Red"
+                            color="error"
+                        />
+                        <MuiCheckbox
+                            field={field}
+                            name="preferences"
+                            value="blue"
+                            label="Blue"
+                            color="primary"
+                        />
+                        <MuiCheckbox
+                            field={field}
+                            name="preferences"
+                            value="green"
+                            label="Green"
+                            color="success"
+                        />
+                        </Box>
                     )}
-                />
-                </Box>
-               
+                    />
+
             </div>
             {errors.preferences && <p style={{color:'red'}}>{errors.preferences.message}</p>}
             <div>
