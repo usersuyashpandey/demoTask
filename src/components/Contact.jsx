@@ -1,13 +1,30 @@
 import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Contact = ({ contact }) => {
   return (
-    <div>
-      <p>Name: {contact.name}</p>
-      <p>Phone: {contact.phone}</p>
-      <p>Address: {contact.address}</p>
-      <p>Email: {contact.email}</p>
-    </div>
+    <Container style={{margin:'1rem'}}>
+      <Row>
+        <Col>
+          <p>Name: {contact.name}</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <p>Phone: {contact.phone}</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <p>Address: {contact.address}</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <p>Email: {contact.email}</p>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

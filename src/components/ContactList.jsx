@@ -4,6 +4,7 @@ import Contact from "./Contact";
 import ContactForm from "./ContactForm";
 import { deleteContact, editContact } from "../actions";
 import { useLocation } from "react-router-dom";
+import { Container, Form, FormControl, Button } from "react-bootstrap";
 
 const ContactList = ({ location = { pathname: "" } }) => {
   const currentPath = location.pathname;
@@ -30,27 +31,30 @@ const ContactList = ({ location = { pathname: "" } }) => {
   );
 
   return (
-    <div>
-      <input
+    <Container style={{marginTop:'2rem'}}>
+      <Form>
+      <FormControl
         type="text"
         placeholder="Search contacts..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
+        style={{width:'20rem'}}
       />
+    </Form>
       {editingContact ? (
         <ContactForm onSubmit={handleSubmit} contact={editingContact} />
       ) : (
         filteredContacts.map((contact) => (
           <div key={contact.id}>
             <Contact contact={contact} />
-            <button onClick={() => handleEdit(contact.id, contact)}>
+            <Button onClick={() => handleEdit(contact.id, contact)} style={{marginRight:'12rem'}}>
               Edit
-            </button>
-            <button onClick={() => handleDelete(contact.id)}>Delete</button>
+            </Button>
+            <Button onClick={() => handleDelete(contact.id)}>Delete</Button>
           </div>
         ))
       )}
-    </div>
+    </Container>
   );
 };
 

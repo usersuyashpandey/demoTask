@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, Controller } from "react-hook-form";
 import { Button, Checkbox,Box,TextField, FormControlLabel, FormLabel, MenuItem, Radio, RadioGroup, Select} from '@mui/material';
 import * as y from "yup";
+import { Link } from 'react-router-dom';
 
 const schema = y.object({
     name: y.string().required("Name is requred"),
@@ -84,11 +85,12 @@ export default function Register() {
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'blue' }}>
+            <Link to={'/'} style={{color:'white',textDecoration:'none'}}>Back to home page</Link>
             <Box
                 component="form"
                 sx={{
                     '& .MuiTextField-root': { m: 1, width: '35ch' },
-                    width: '40ch',
+                    width: '50ch',
                     m: '3rem',
                     p: '3.5rem',
                     borderRadius: '10px',

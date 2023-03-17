@@ -1,13 +1,14 @@
 import React from "react";
-import {yupResolver} from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from "react-hook-form";
 import * as y from "yup";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 const schema = y.object({
   name: y.string().required("Please enter your name"),
   phone: y.string()
-      .required("Phone no. is required")
-      .matches(/^[\d\+ \-\(\)]+$/, "Please enter a valid phone number"),
+    .required("Phone no. is required")
+    .matches(/^[\d\+ \-\(\)]+$/, "Please enter a valid phone number"),
   address: y.string().required("Please enter your address"),
   email: y.string().email("Please enter a valid email address").required("Please enter your email"),
 });
@@ -24,49 +25,38 @@ const ContactForm = ({ onSubmit, contact }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitForm)}>
-      <label>
-        Name:
-        <input
-          type="text"
-          {...register("name")}
-          placeholder="Enter your name"
-        />
-        {errors.name && <p style={{color:'red'}}>{errors.name.message}</p>}
-      </label>
-      <br />
-      <label>
-        Phone:
-        <input
-          type="text"
-          {...register("phone")}
-          placeholder="Enter your phone number"
-        />
-        {errors.phone && <p style={{color:'red'}}>{errors.phone.message}</p>}
-      </label>
-      <br />
-      <label>
-        Address:
-        <input
-          type="text"
-          {...register("address")}
-          placeholder="Enter your address"
-        />
-        {errors.address && <p style={{color:'red'}}>{errors.address.message}</p>}
-      </label>
-      <br />
-      <label>
-        Email:
-        <input
-          type="text"
-          {...register("email")}
-          placeholder="Enter your email"
-        />
-        {errors.email && <p style={{color:'red'}}>{errors.email.message}</p>}
-      </label>
-      <br />
-      <button type="submit">{contact ? "Update" : "Add"}</button>
-    </form>
+    <Container>
+      <Row className="justify-content-md-center">
+        <Col xs={12} md={6}>
+          <Form onSubmit={handleSubmit(onSubmitForm)}>
+            <Form.Group className="mb-3" >
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" {...register("name")} placeholder="Enter name" />
+              {errors.name && <p style={{ color: 'red' }}>{errors.name.message}</p>}
+            </Form.Group>
+
+            <Form.Group className="mb-3" >
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" {...register("email")} placeholder="Enter email" />
+              {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
+            </Form.Group>
+
+            <Form.Group className="mb-3" >
+              <Form.Label>Phone No.</Form.Label>
+              <Form.Control type="text" {...register("phone")} placeholder="Enter phone number" />
+              {errors.phone && <p style={{ color: 'red' }}>{errors.phone.message}</p>}
+            </Form.Group>
+
+            <Form.Group className="mb-3" >
+              <Form.Label>Address</Form.Label>
+              <Form.Control type="text" {...register("address")} placeholder="Enter address" />
+              {errors.address && <p style={{ color: 'red' }}>{errors.address.message}</p>}
+            </Form.Group>
+            <Button type="submit">{contact ? "Update" : "Add"}</Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
