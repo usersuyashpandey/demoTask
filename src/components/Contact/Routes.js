@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
-import ContactApp from './ContactApp';
-import Register from './components/Register/Register';
-import Home from './components/Home/Home';
+import ContactApp from '../../ContactApp';
+import Register from '../Register/Register';
+import Home from '../Home/Home';
 
 export default function ManageRoutes() {
   return (

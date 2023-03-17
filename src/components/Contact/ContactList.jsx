@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Contact from "./Contact";
 import ContactForm from "./ContactForm";
-import { deleteContact, editContact } from "../actions";
+import { deleteContact, editContact } from "../../actions";
 import { useLocation } from "react-router-dom";
 import { Container, Form, FormControl, Button } from "react-bootstrap";
 

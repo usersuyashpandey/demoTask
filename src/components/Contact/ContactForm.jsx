@@ -14,12 +14,16 @@ const schema = y.object({
 });
 
 const ContactForm = ({ onSubmit, contact }) => {
+  console.log(contact,'contact')
+  let selectedContact = {name:contact?.name,email:contact?.email,phone:contact?.phone,address:contact?.address} 
+  console.log(selectedContact,'llkk')
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: contact,
+    defaultValues: selectedContact,
   });
 
   const onSubmitForm = (data) => {
+    console.log(data,'llop')
     onSubmit(data);
     reset();
   };
@@ -59,5 +63,4 @@ const ContactForm = ({ onSubmit, contact }) => {
     </Container>
   );
 };
-
-export default ContactForm;
+export default ContactForm
