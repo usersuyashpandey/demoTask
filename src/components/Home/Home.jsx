@@ -24,6 +24,9 @@ export default function Home() {
             <Button component={Link} to="/register">
               Register Form
             </Button>
+            <Button component={Link} to="/login">
+              Emilus App
+            </Button>
           </Box>
         </Grid>
       </Grid>

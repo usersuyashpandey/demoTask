@@ -34,10 +34,10 @@ const ContactForm = ({ editingContact }) => {
     setContact(editingContact || { name: '', email: '', phone: '', address: '' });
     if (editingContact) {
       setEditing(true)
-      setValue('name', editingContact.name);
-      setValue('email', editingContact.email);
-      setValue('phone', editingContact.phone);
-      setValue('address', editingContact.address);
+      setValue('name', editingContact?.name);
+      setValue('email', editingContact?.email);
+      setValue('phone', editingContact?.phone);
+      setValue('address', editingContact?.address);
     }
   }, [editingContact,setValue]);
 

@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { legacy_createStore as createStore } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./reducers";
-import ManageRoutes from './components/Contact/Routes';
+import ManageRoutes from './components/Routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = createStore(reducer);
