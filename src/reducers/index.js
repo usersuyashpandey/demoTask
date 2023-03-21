@@ -2,7 +2,7 @@
 
 const initialState = {
   contacts: JSON.parse(localStorage.getItem("contacts")) || [],
-};
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
